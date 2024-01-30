@@ -27,10 +27,7 @@ const app = express();
 
 app.get("/", async (req, res) => {
   await model.create({ otp: 123 });
-  model.findByIdAndDelete(otpId);
-  res.json({
-    msg: "Created",
-  });
+  res.end();
 });
 
 app.listen(500);
