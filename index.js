@@ -14,6 +14,11 @@ mongoose
 
 const schema = mongoose.Schema({
   otp: Number,
+  expireAt: {
+    type: Date,
+    default: Date.now,
+    index: { expires: "5s" },
+  },
 });
 
 const model = mongoose.model("model", schema, "otp");
@@ -21,21 +26,11 @@ const model = mongoose.model("model", schema, "otp");
 const app = express();
 
 app.get("/", async (req, res) => {
-  let otp = await model.create({ otp: 123 });
-  let otpId = otp.id;
-  console.log(otpId);
-  setTimeout(() => {
-    async function deleteOtp() {
-      await model.findByIdAndDelete(otpId);
-    }
-    deleteOtp();
-
-    res.json({
-      msg: "otp deleted",
-    });
-  }, 5000);
-
-  res.end();
+  await model.create({ otp: 123 });
+  model.findByIdAndDelete(otpId);
+  res.json({
+    msg: "Created",
+  });
 });
 
 app.listen(500);
