@@ -33,7 +33,7 @@ app.get("/", async (req, res) => {
     res.json({
       msg: "otp deleted",
     });
-  }, 15000);
+  }, 5000);
 
   res.end();
 });
