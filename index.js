@@ -29,6 +29,10 @@ app.get("/", async (req, res) => {
       await model.findByIdAndDelete(otpId);
     }
     deleteOtp();
+
+    res.json({
+      msg: "otp deleted",
+    });
   }, 15000);
 
   res.end();
